@@ -1,29 +1,28 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
 
-import io from 'socket.io-client';
 import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
+import SocketContext from './../utils/SocketUtlis';
+import {useSelector} from 'react-redux';
 
 const ChatScreen = props => {
   const [messageList, setMessageList] = useState([]);
 
-  let socket = useRef();
+  const socket = useSelector(state => state.socket.socket);
 
   useEffect(() => {
-    socket.current = io('http://192.168.43.188:3000/');
-
-    socket.current.on('newMsg', data => {
+    socket.on('newMsg', data => {
       let user = data.user === user ? 'You' : data.user;
       setMessageList(messages => {
         const existingMessages = [...messages, {user, message: data.message}];
         return existingMessages;
       });
     });
-  }, [io]);
+  }, []);
 
   const sendTextMessage = message => {
-    socket.current.emit('msg', {
+    socket.emit('msg', {
       message: message,
       user: 'Gogul',
     });

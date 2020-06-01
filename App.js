@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {createContext, useContext} from 'react';
 import {StyleSheet, StatusBar, SafeAreaView} from 'react-native';
 import ChatScreen from './screens/ChatScreen';
 import JoinChatScreen from './screens/JoinChatScreen';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import UserReducer from './store/reducers/UserReducer';
+import io from 'socket.io-client';
+
+import SocketReducer from './utils/SocketUtlis';
 
 const rootReducer = combineReducers({
   user: UserReducer,
+  socket: SocketReducer,
 });
+
 const store = createStore(rootReducer);
 
 const App = () => {
@@ -17,7 +22,7 @@ const App = () => {
       <>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <SafeAreaView style={styles.view}>
-          <ChatScreen />
+          <JoinChatScreen />
         </SafeAreaView>
       </>
     </Provider>

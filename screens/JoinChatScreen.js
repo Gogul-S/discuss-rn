@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,15 +6,39 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import * as UserActions from './../store/actions/UserActions';
+import {useSelector, useDispatch} from 'react-redux';
 
 const JoinChatScreen = props => {
-  const joinChat = () => {};
+  const socket = useSelector(state => state.socket.socket);
+  const [userName, setUsername] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on('userSet', data => {
+      dispatch(UserActions.setUser(data.username));
+    });
+  }, [socket]);
+
+  const joinChat = () => {
+    if (userName) {
+      socket.emit('newUser', userName);
+    }
+  };
 
   return (
     <View style={styles.screen}>
       <View style={styles.inputContainer}>
         <Text style={styles.title}>USERNAME</Text>
-        <TextInput style={styles.userNameInput} />
+        <TextInput
+          selectionColor="#888"
+          style={styles.userNameInput}
+          value={userName}
+          onChangeText={text => {
+            setUsername(text);
+          }}
+        />
       </View>
       <TouchableOpacity onPress={joinChat}>
         <Text style={styles.buttonText}>JOIN CHAT</Text>
