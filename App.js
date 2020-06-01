@@ -8,6 +8,7 @@ import UserReducer from './store/reducers/UserReducer';
 import io from 'socket.io-client';
 
 import SocketReducer from './utils/SocketUtlis';
+import AppNavigator from './navigation/AppNavigator';
 
 const rootReducer = combineReducers({
   user: UserReducer,
@@ -21,9 +22,7 @@ const App = () => {
     <Provider store={store}>
       <>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
-        <SafeAreaView style={styles.view}>
-          <JoinChatScreen />
-        </SafeAreaView>
+        <AppNavigator />
       </>
     </Provider>
   );

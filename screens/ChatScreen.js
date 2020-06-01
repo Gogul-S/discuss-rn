@@ -11,6 +11,8 @@ const ChatScreen = props => {
 
   const socket = useSelector(state => state.socket.socket);
 
+  const user = useSelector(state => state.user.userName);
+
   useEffect(() => {
     socket.on('newMsg', data => {
       let user = data.user === user ? 'You' : data.user;
@@ -24,7 +26,7 @@ const ChatScreen = props => {
   const sendTextMessage = message => {
     socket.emit('msg', {
       message: message,
-      user: 'Gogul',
+      user: user,
     });
   };
 
@@ -37,7 +39,7 @@ const ChatScreen = props => {
           <Message
             user={itemData.item.user}
             message={itemData.item.message}
-            selfMessage={itemData.item.user === 'Gogul'}
+            selfMessage={itemData.item.user === user}
           />
         )}
       />
