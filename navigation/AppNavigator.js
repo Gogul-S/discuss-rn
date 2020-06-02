@@ -6,9 +6,15 @@ import JoinChatScreen from './../screens/JoinChatScreen';
 
 const AppNavigator = props => {
   const user = useSelector(state => state.user.userName);
+  const messages = useSelector(state => state.user.messages);
+  console.log(messages);
   return (
     <NavigationContainer>
-      {user && user.length > 0 ? <ChatScreen /> : <JoinChatScreen />}
+      {user && user.length > 0 ? (
+        <ChatScreen messages={messages} />
+      ) : (
+        <JoinChatScreen />
+      )}
     </NavigationContainer>
   );
 };

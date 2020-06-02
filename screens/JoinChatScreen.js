@@ -17,7 +17,7 @@ const JoinChatScreen = props => {
 
   useEffect(() => {
     socket.on('userSet', data => {
-      dispatch(UserActions.setUser(data.username));
+      dispatch(UserActions.setUser(data.username, data.messages));
     });
   }, [socket]);
 
@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
   userNameInput: {
     borderColor: '#ccc',
     borderWidth: 1,
+    width: '100%',
+    fontSize: 18,
+    paddingStart: 10,
+    height: 50,
     marginTop: 10,
   },
   buttonText: {

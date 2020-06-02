@@ -22,7 +22,9 @@ const App = () => {
     <Provider store={store}>
       <>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
-        <AppNavigator />
+        <SafeAreaView style={{height: '100%', width: '100%'}}>
+          <AppNavigator />
+        </SafeAreaView>
       </>
     </Provider>
   );

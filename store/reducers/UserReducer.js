@@ -2,6 +2,7 @@ import {SET_USER} from '../actions/UserActions';
 
 const initialState = {
   userName: '',
+  messages: [],
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -9,6 +10,7 @@ const UserReducer = (state = initialState, action) => {
     case SET_USER:
       return {
         userName: action.username,
+        messages: action.messages,
       };
   }
   return state;

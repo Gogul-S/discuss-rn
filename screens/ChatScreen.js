@@ -3,21 +3,21 @@ import {View, StyleSheet, Text, FlatList} from 'react-native';
 
 import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
-import SocketContext from './../utils/SocketUtlis';
 import {useSelector} from 'react-redux';
 
 const ChatScreen = props => {
-  const [messageList, setMessageList] = useState([]);
-
+  const [messageList, setMessageList] = useState([...props.messages]);
   const socket = useSelector(state => state.socket.socket);
-
   const user = useSelector(state => state.user.userName);
 
   useEffect(() => {
     socket.on('newMsg', data => {
       let user = data.user === user ? 'You' : data.user;
       setMessageList(messages => {
-        const existingMessages = [...messages, {user, message: data.message}];
+        const existingMessages = [
+          ...messages,
+          {id: data.id, user, message: data.message},
+        ];
         return existingMessages;
       });
     });

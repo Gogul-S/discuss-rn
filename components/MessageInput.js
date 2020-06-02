@@ -9,7 +9,6 @@ import {
 
 const MessageInput = props => {
   const [text, setText] = useState();
-
   return (
     <View style={{...styles.messageInputConatiner, ...props.style}}>
       <View style={styles.messageInput}>
@@ -44,9 +43,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 8,
     width: '100%',
+    height: 50,
   },
   messageInput: {
     flex: 1,
+    fontSize: 18,
+    paddingStart: 10,
     marginEnd: 15,
   },
   textInput: {
